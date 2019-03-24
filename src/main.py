@@ -2,6 +2,7 @@
 
 from yelpapi import YelpAPI
 import json
+import os
 
 from categories import top_level_categories
 
@@ -18,13 +19,13 @@ LONG = -118.1503
 
 """If term is not included the endpoint will default to searching across businesses from a small number of popular categories."""
 
-def yelp91030(term):
+def yelp91030(term, dirname="../output2/"):
     d = fetch(term=term)
     print('term: {t}'.format(t=term))
     print('fetched: {f}'.format(f=d['fetched']))
     print('kept: {k}'.format(k=d['kept']))
     catalog = d['catalog']
-    fname = str(term) + '.json'
+    fname = os.path.join(dirname, str(term) + '.json')
     print("writing to {n}".format(n=fname))
     with open(fname, 'w') as f:
         json.dump(catalog, f)
